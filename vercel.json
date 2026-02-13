@@ -1,0 +1,14 @@
+{
+    "crons": [
+        {
+            "path": "/api/bump",
+            "schedule": "*/30 * * * *"
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/api/index.py"
+        }
+    ]
+}
