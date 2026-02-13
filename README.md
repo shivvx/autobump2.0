@@ -1,46 +1,63 @@
-# Discord Autobump Bot (Vercel + Vite Edition)
+# Discord Autobump Bot
 
-A 24/7 Discord Autobump bot hosted on Vercel Serverless Functions with a modern React Dashboard.
+A self-bot script to automatically run the `/bump` command in specified Discord channels.
 
-## Features
-- **Serverless Architecture**: Runs on Vercel (Free Tier compatible).
-- **Cron Jobs**: Automatically bumps every 30 minutes.
-- **Modern Dashboard**: Monitor status and trigger manual bumps via a sleek UI.
-- **Stealth Mode**: Uses `discord.py-self` to automate user accounts.
+> ⚠️ **WARNING**: Automating user accounts (self-botting) is against Discord's Terms of Service. Use this software at your own risk. The author is not responsible for any account bans or restrictions.
 
-## Deployment Guide (Vercel)
+## Prerequisites
 
-### Option 1: Vercel CLI (Recommended if you have it)
-1. Run `vercel` in this directory.
-2. Follow the prompts.
-3. Set Environment Variables (see below).
+- Python 3.8 or higher
+- A Discord user token (DO NOT SHARE THIS WITH ANYONE)
 
-### Option 2: GitHub Integration
-1. Push this code to a GitHub repository.
-2. Import the project in Vercel Dashboard.
-3. Vercel will automatically detect the Vite frontend and Python API.
+## Installation
 
-### Environment Variables
-For security, set these in Vercel Project Settings (Settings -> Environment Variables):
-- `DISCORD_TOKEN`: Your user token.
-- `CHANNELS`: JSON array of channel IDs, e.g., `["123456789", "987654321"]`.
+1.  **Initialize the virtual environment**:
+    ```bash
+    python3 -m venv venv
+    ```
 
-> **Note**: The bot will fallback to `config.json` if these are not set, but using Environment Variables is more secure.
+2.  **Install dependencies**:
+    ```bash
+    ./venv/bin/pip install -r requirements.txt
+    ```
 
-## Local Development
-1. **Backend**:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
-   python api/index.py
-   ```
-2. **Frontend** (Requires Node.js):
-   ```bash
-   npm install
-   npm run dev
-   ```
+## Configuration
 
-## Cron Job
-The bot is configured to run every 30 minutes via `vercel.json`. You can check the "Cron Jobs" tab in your Vercel Dashboard to see execution history.
-# autobump2.0
+1.  Open `config.json` in a text editor.
+2.  Replace `"YOUR_USER_TOKEN_HERE"` with your actual Discord user token.
+3.  Update the `channels` list with the Channel IDs where you want to send the bump command.
+4.  (Optional) Adjust `interval_minutes` if you want a different frequency (default is 30 minutes).
+
+```json
+{
+  "token": "YOUR_TOKEN",
+  "channels": [
+    "CHANNEL_ID_1",
+    "CHANNEL_ID_2"
+  ],
+  "interval_minutes": 30
+}
+```
+
+## 🚀 How to Run
+
+1.  Open your **Terminal**.
+2.  Navigate to the project folder:
+    ```bash
+    cd /Users/shiv/Documents/autobump
+    ```
+3.  **Run the bot with this command:**
+    ```bash
+    ./venv/bin/python main.py
+    ```
+
+> Note: Make sure you have installed the dependencies first (see Installation section).
+
+The bot will log in and start the loop. It will check for the `/bump` command (specifically for Disboard) in the specified channels and trigger it.
+
+## Troubleshooting
+
+- **Webhook Error 404**: If you see `Failed to send webhook log: 404`, check that your Webhook URL in `config.json` is correct and hasn't been deleted.
+- **"Could not find '/bump' command"**: Ensure that the Disboard bot is in the server and you have permissions to view and use its commands in that channel.
+- **Login errors**: Double-check your user token.
+# discordbump
